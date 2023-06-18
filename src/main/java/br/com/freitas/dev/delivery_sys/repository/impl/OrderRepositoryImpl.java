@@ -49,7 +49,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Boolean createNewOrder(Order newOrder) {
         int rowsAdded = jdbcTemplate.update("INSERT INTO \"ORDER\" (DESCRIPTION, CLIENT_ID) VALUES(?,?)",
-                newOrder.getDescription(), newOrder.getClient_id());
+                newOrder.getDescription(), newOrder.getClientId());
 
         if (rowsAdded == 0) {
             log.error("Order dont added");
@@ -61,7 +61,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order updateOrder(Order order) {
         int rowsModificaded = jdbcTemplate.update("UPDATE \"ORDER\" SET DESCRIPTION=?, CLIENT_ID=? WHERE ID=?",
-                order.getDescription(), order.getClient_id(), order.getId());
+                order.getDescription(), order.getClientId(), order.getId());
 
         if (rowsModificaded == 0) {
             log.error("Order dont updated");

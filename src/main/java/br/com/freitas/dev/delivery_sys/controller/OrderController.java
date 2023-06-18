@@ -3,6 +3,7 @@ package br.com.freitas.dev.delivery_sys.controller;
 import br.com.freitas.dev.delivery_sys.model.Order;
 import br.com.freitas.dev.delivery_sys.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,12 @@ public class OrderController {
         if (orders.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
+
+        for (Order order: orders) {
+            long id = order.getId();
+            order.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(OrderController.class).getOrderById(id)).withSelfRel());
+        }
+
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
@@ -41,13 +48,16 @@ public class OrderController {
         if (order == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+        order.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(OrderController.class).getAllOrders()).withRel("List all orders"));
+
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<String> createNewOrder(@RequestBody Order order) {
         try {
-            Boolean created = repository.createNewOrder(new Order(order.getDescription(), order.getClient_id()));
+            Boolean created = repository.createNewOrder(new Order(order.getDescription(), order.getClientId()));
             if (!created) {
                 return new ResponseEntity<>("Error to create a new order!", HttpStatus.BAD_REQUEST);
             }
@@ -66,7 +76,7 @@ public class OrderController {
         }
         baseOrder.setId(id);
         baseOrder.setDescription(order.getDescription());
-        baseOrder.setClient_id(order.getClient_id());
+        baseOrder.setClientId(order.getClientId());
 
         Order updatedOrder = repository.updateOrder(baseOrder);
 

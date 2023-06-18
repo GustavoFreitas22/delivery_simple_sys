@@ -3,6 +3,8 @@ package br.com.freitas.dev.delivery_sys.controller;
 import br.com.freitas.dev.delivery_sys.model.Client;
 import br.com.freitas.dev.delivery_sys.repository.impl.ClientRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.core.WebHandler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,11 @@ public class ClientController {
         if (clients.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+        for (Client client: clients) {
+            long id = client.getId();
+            client.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClientController.class).getClientById(id)).withSelfRel());
+        }
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
@@ -33,6 +40,8 @@ public class ClientController {
         if (client == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+        client.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClientController.class).getAllClients()).withRel("List with all clients"));
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 

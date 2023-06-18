@@ -3,6 +3,7 @@ package br.com.freitas.dev.delivery_sys.controller;
 import br.com.freitas.dev.delivery_sys.model.Delivery;
 import br.com.freitas.dev.delivery_sys.repository.impl.DeliveryRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class DeliveryController {
         if (deliveries.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+        for (Delivery delivery: deliveries) {
+            long id = delivery.getId();
+            delivery.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(DeliveryController.class).getDeliveryById(id)).withSelfRel());
+        }
         return new ResponseEntity<>(deliveries, HttpStatus.OK);
     }
 
@@ -32,6 +38,9 @@ public class DeliveryController {
         if (delivery == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+        delivery.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(DeliveryController.class).getAllDelivery()).withRel("List with all deliveries"));
+
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
 
