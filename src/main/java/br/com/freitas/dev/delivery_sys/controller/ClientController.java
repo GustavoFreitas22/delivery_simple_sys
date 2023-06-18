@@ -3,7 +3,6 @@ package br.com.freitas.dev.delivery_sys.controller;
 import br.com.freitas.dev.delivery_sys.model.Client;
 import br.com.freitas.dev.delivery_sys.repository.impl.ClientRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.server.core.WebHandler;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class ClientController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        for (Client client: clients) {
+        for (Client client : clients) {
             long id = client.getId();
             client.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClientController.class).getClientById(id)).withSelfRel());
         }
@@ -79,9 +78,9 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteClientById(@PathVariable("id") long id){
+    public ResponseEntity<String> deleteClientById(@PathVariable("id") long id) {
         Boolean deleted = repository.deleteClientById(id);
-        if (!deleted){
+        if (!deleted) {
             return new ResponseEntity<>("Client dont deleted!", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Client Deleted with success!", HttpStatus.OK);

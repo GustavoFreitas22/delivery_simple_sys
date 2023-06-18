@@ -25,7 +25,7 @@ public class OrderController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
 
-        for (Order order: orders) {
+        for (Order order : orders) {
             long id = order.getId();
             order.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(OrderController.class).getOrderById(id)).withSelfRel());
         }

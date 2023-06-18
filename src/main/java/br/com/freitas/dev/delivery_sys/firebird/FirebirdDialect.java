@@ -8,17 +8,6 @@ import org.springframework.data.relational.core.sql.LockOptions;
 public class FirebirdDialect extends AnsiDialect {
 
     public static final FirebirdDialect INSTANCE = new FirebirdDialect();
-
-    @Override
-    public LockClause lock() {
-        return LOCK_CLAUSE;
-    }
-
-    @Override
-    public ArrayColumns getArraySupport() {
-        return ArrayColumns.Unsupported.INSTANCE;
-    }
-
     private static final LockClause LOCK_CLAUSE = new LockClause() {
 
         @Override
@@ -31,4 +20,14 @@ public class FirebirdDialect extends AnsiDialect {
             return Position.AFTER_ORDER_BY;
         }
     };
+
+    @Override
+    public LockClause lock() {
+        return LOCK_CLAUSE;
+    }
+
+    @Override
+    public ArrayColumns getArraySupport() {
+        return ArrayColumns.Unsupported.INSTANCE;
+    }
 }

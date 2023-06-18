@@ -62,7 +62,7 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Boolean deleteClientById(long id) {
         int rowsDeleted = jdbcTemplate.update("DELETE FROM CLIENT WHERE id=?", id);
-        if (rowsDeleted==0){
+        if (rowsDeleted == 0) {
             log.error("Error to delete client by id=${}", id);
             return false;
         }

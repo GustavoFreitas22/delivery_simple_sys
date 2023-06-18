@@ -25,7 +25,7 @@ public class DeliveryController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        for (Delivery delivery: deliveries) {
+        for (Delivery delivery : deliveries) {
             long id = delivery.getId();
             delivery.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(DeliveryController.class).getDeliveryById(id)).withSelfRel());
         }

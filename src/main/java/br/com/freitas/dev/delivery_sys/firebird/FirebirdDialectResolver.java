@@ -13,18 +13,18 @@ import java.util.Optional;
 
 public class FirebirdDialectResolver implements DialectResolver.JdbcDialectProvider {
 
-    @Override
-    public Optional<Dialect> getDialect(JdbcOperations operations) {
-        return Optional.ofNullable(
-                operations.execute((ConnectionCallback<Dialect>) FirebirdDialectResolver::getDialect));
-    }
-
-    private static Dialect getDialect(Connection connection) throws SQLException  {
+    private static Dialect getDialect(Connection connection) throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         String name = metaData.getDatabaseProductName().toLowerCase(Locale.ROOT);
         if (name.contains("firebird")) {
             return FirebirdDialect.INSTANCE;
         }
         return null;
+    }
+
+    @Override
+    public Optional<Dialect> getDialect(JdbcOperations operations) {
+        return Optional.ofNullable(
+                operations.execute((ConnectionCallback<Dialect>) FirebirdDialectResolver::getDialect));
     }
 }

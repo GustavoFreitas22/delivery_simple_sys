@@ -1,19 +1,14 @@
 package br.com.freitas.dev.delivery_sys.repository.impl;
 
 import br.com.freitas.dev.delivery_sys.model.Delivery;
-import br.com.freitas.dev.delivery_sys.model.Order;
 import br.com.freitas.dev.delivery_sys.repository.DeliveryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
