@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.freitas.dev</groupId>
     <artifactId>delivery_sys</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>delivery_sys</name>
     <description>Simple delivery system</description>
     <properties>

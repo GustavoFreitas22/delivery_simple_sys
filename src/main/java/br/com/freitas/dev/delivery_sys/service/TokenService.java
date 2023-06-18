@@ -22,7 +22,7 @@ public class TokenService {
                 .withIssuer("Client")
                 .withSubject(user.getUsername())
                 .withClaim("id", user.getId())
-                .withExpiresAt(LocalDateTime.now().plusMinutes(5)
+                .withExpiresAt(LocalDateTime.now().plusDays(10)
                         .toInstant(ZoneOffset.of("-03:00")))
                 .sign(Algorithm.HMAC256("delivery"));
     }
