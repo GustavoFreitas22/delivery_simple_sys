@@ -1,7 +1,7 @@
 package br.com.freitas.dev.delivery_sys.controller;
 
 import br.com.freitas.dev.delivery_sys.model.Client;
-import br.com.freitas.dev.delivery_sys.repository.ClientRepositoryImpl;
+import br.com.freitas.dev.delivery_sys.repository.impl.ClientRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

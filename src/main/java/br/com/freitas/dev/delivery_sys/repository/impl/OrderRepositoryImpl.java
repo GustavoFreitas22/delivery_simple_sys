@@ -1,7 +1,7 @@
-package br.com.freitas.dev.delivery_sys.repository;
+package br.com.freitas.dev.delivery_sys.repository.impl;
 
-import br.com.freitas.dev.delivery_sys.model.Client;
 import br.com.freitas.dev.delivery_sys.model.Order;
+import br.com.freitas.dev.delivery_sys.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Repository
-public class OrderRepositoryImpl implements OrderRepository{
+public class OrderRepositoryImpl implements OrderRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -73,7 +73,7 @@ public class OrderRepositoryImpl implements OrderRepository{
     @Override
     public Boolean deleteOrderById(long id) {
         int rowsDeleted = jdbcTemplate.update("DELETE FROM \"ORDER\" WHERE id=?", id);
-        if (rowsDeleted==0){
+        if (rowsDeleted == 0) {
             log.error("Error to delete order by id=${}", id);
             return false;
         }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -13,6 +14,11 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Delivery {
     private long id;
-    private Date date;
+    private LocalDate date;
     private long orderId;
+
+    public Delivery(LocalDate date, long orderId) {
+        this.date = date;
+        this.orderId = orderId;
+    }
 }

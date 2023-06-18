@@ -1,6 +1,5 @@
 package br.com.freitas.dev.delivery_sys.controller;
 
-import br.com.freitas.dev.delivery_sys.model.Client;
 import br.com.freitas.dev.delivery_sys.model.Order;
 import br.com.freitas.dev.delivery_sys.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class OrderController {
     public ResponseEntity<List<Order>> getOrderByClientId(@PathVariable("id") long id) {
         List<Order> orders = repository.getAllOrdersByClientId(id);
         if (orders.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
@@ -59,7 +58,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable("id") long id,  @RequestBody Order order){
+    public ResponseEntity<Order> updateOrder(@PathVariable("id") long id, @RequestBody Order order) {
         Order baseOrder = repository.getOrderById(id);
 
         if (baseOrder == null) {
@@ -78,9 +77,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrderById(@PathVariable("id") long id){
+    public ResponseEntity<String> deleteOrderById(@PathVariable("id") long id) {
         Boolean deleted = repository.deleteOrderById(id);
-        if (!deleted){
+        if (!deleted) {
             return new ResponseEntity<>("Order dont deleted!", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Order Deleted with success!", HttpStatus.OK);

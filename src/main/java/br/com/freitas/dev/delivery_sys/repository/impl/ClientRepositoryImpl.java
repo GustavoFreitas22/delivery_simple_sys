@@ -1,6 +1,7 @@
-package br.com.freitas.dev.delivery_sys.repository;
+package br.com.freitas.dev.delivery_sys.repository.impl;
 
 import br.com.freitas.dev.delivery_sys.model.Client;
+import br.com.freitas.dev.delivery_sys.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
