@@ -52,7 +52,7 @@ public class ClientRepositoryImpl implements ClientRepository {
                 client.getName(), client.getAddress(), client.getId());
 
         if (rowsModificaded == 0) {
-            log.error("Client dont modificated");
+            log.error("Client dont updated");
             return null;
         }
         return client;
